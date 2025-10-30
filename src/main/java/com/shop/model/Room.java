@@ -5,8 +5,8 @@ public class Room {
     private String tenNguoiThue;
     private String soDienThoai;
     private String ngayBatDau;
-    private int hinhThucId;              // ✅ thêm dòng này
-    private String hinhThucThanhToan;    // tên hiển thị (JOIN từ bảng khác)
+    private int hinhThucId;
+    private String hinhThucThanhToan;
     private String ghiChu;
 
     public Room() {}
@@ -22,7 +22,7 @@ public class Room {
         this.ghiChu = ghiChu;
     }
 
-    // ✅ Constructor dùng khi INSERT
+
     public Room(String tenNguoiThue, String soDienThoai,
                 String ngayBatDau, int hinhThucId, String ghiChu) {
         this.tenNguoiThue = tenNguoiThue;
@@ -32,7 +32,7 @@ public class Room {
         this.ghiChu = ghiChu;
     }
 
-    // --- Getters & Setters ---
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -45,7 +45,7 @@ public class Room {
     public String getNgayBatDau() { return ngayBatDau; }
     public void setNgayBatDau(String ngayBatDau) { this.ngayBatDau = ngayBatDau; }
 
-    public int getHinhThucId() { return hinhThucId; }           // ✅ thêm getter
+    public int getHinhThucId() { return hinhThucId; }
     public void setHinhThucId(int hinhThucId) { this.hinhThucId = hinhThucId; }
 
     public String getHinhThucThanhToan() { return hinhThucThanhToan; }
