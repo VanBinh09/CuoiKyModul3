@@ -27,22 +27,45 @@
         <button class="btn btn-danger" id="deleteSelectedBtn"> Xóa đã chọn</button>
     </div>
 
-    <form id="deleteForm" action="rooms" method="get">
+    <form action="rooms" method="get" class="d-flex mb-3">
+        <input type="hidden" name="action" value="search">
+        <input type="text" name="keyword" class="form-control me-2" placeholder="Tìm kiếm theo mã, tên hoặc số điện thoại">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </form>
+
+    <form action="rooms" method="get">
         <input type="hidden" name="action" value="delete">
-        <table class="table table-striped table-hover align-middle bg-white shadow-sm">
-            <thead class="table-primary">
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <th scope="col"><input type="checkbox" id="checkAll"></th>
-                <th scope="col">Mã phòng</th>
-                <th scope="col">Tên người thuê</th>
-                <th scope="col">Số điện thoại</th>
-                <th scope="col">Ngày bắt đầu</th>
-                <th scope="col">Hình thức thanh toán</th>
-                <th scope="col">Ghi chú</th>
+                <th>Chọn</th>
+                <th>Mã phòng trọ</th>
+                <th>Tên người thuê</th>
+                <th>Số điện thoại</th>
+                <th>Ngày bắt đầu thuê</th>
+                <th>Hình thức thanh toán</th>
+                <th>Ghi chú</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="room" items="${listRooms}">
+            <c:forEach var="r" items="${listRoom}">
+                <tr>
+                    <td><input type="checkbox" name="deleteIds" value="${r.id}"></td>
+                    <td>${r.id}</td>
+                    <td>${r.tenNguoiThue}</td>
+                    <td>${r.soDienThoai}</td>
+                    <td>${r.ngayBatDau}</td>
+                    <td>${r.hinhThucThanhToan}</td>
+                    <td>${r.ghiChu}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-danger">Xóa</button>
+    </form>
+
+    <c:forEach var="room" items="${listRooms}">
                 <tr>
                     <td><input type="checkbox" name="selectedIds" value="${room.id}"></td>
                     <td>PT-${room.id}</td>

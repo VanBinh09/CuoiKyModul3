@@ -79,10 +79,8 @@ public class RoomDAO {
 
     public void deleteRoom(int id) throws SQLException {
         String sql = "DELETE FROM phongtro WHERE id = ?";
-
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
             ps.setInt(1, id);
             ps.executeUpdate();
         }
@@ -91,7 +89,7 @@ public class RoomDAO {
     // Tìm kiếm phòng trọ
     public List<Room> searchRooms(String keyword) throws SQLException {
         List<Room> list = new ArrayList<>();
-        String sql =  "SELECT p.id, p.ten_nguoi_thue, p.so_dien_thoai, "
+        String sql = "SELECT p.id, p.ten_nguoi_thue, p.so_dien_thoai, "
                 + "DATE_FORMAT(p.ngay_bat_dau, '%d-%m-%Y') AS ngay_bat_dau, "
                 + "p.ghi_chu, h.ten_hinh_thuc "
                 + "FROM phongtro p "
@@ -100,23 +98,20 @@ public class RoomDAO {
 
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            String like = "%" + keyword + "%";
-            ps.setString(1, like);
-            ps.setString(2, like);
-            ps.setString(3, like);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Room r = new Room();
-                    r.setId(rs.getInt("id"));
-                    r.setTenNguoiThue(rs.getString("ten_nguoi_thue"));
-                    r.setSoDienThoai(rs.getString("so_dien_thoai"));
-                    r.setNgayBatDau(rs.getString("ngay_bat_dau"));
-                    r.setHinhThucThanhToan(rs.getString("ten_hinh_thuc"));
-                    r.setGhiChu(rs.getString("ghi_chu"));
-                    list.add(r);
-                }
+            String kw = "%" + keyword + "%";
+            ps.setString(1, kw);
+            ps.setString(2, kw);
+            ps.setString(3, kw);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Room(
+                        rs.getInt("id"),
+                        rs.getString("ten_nguoi_thue"),
+                        rs.getString("so_dien_thoai"),
+                        rs.getString("ngay_bat_dau"),
+                        rs.getString("ten_hinh_thuc"),
+                        rs.getString("ghi_chu")
+                ));
             }
         }
         return list;
